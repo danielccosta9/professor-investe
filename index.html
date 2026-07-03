@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carteira B3 — Ações + FIIs (Premium Dashboard)</title>
+  
+  <!-- Fonts Preloads -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ticker tape marquee at top -->
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <span>ITUB4</span> <b>R$ 40,00</b> <em>~7.0%</em> &nbsp;|&nbsp;
+      <span>VALE3</span> <b>R$ 80,45</b> <em>10.3%</em> &nbsp;|&nbsp;
+      <span>TAEE11</span> <b>R$ 41,50</b> <em>~9.0%</em> &nbsp;|&nbsp;
+      <span>BBSE3</span> <b>R$ 38,90</b> <em>~8.0%</em> &nbsp;|&nbsp;
+      <span>WEGE3</span> <b>R$ 46,00</b> <em>4.7%</em> &nbsp;|&nbsp;
+      <span>XPML11</span> <b>R$ 104,90</b> <em>10.5%</em> &nbsp;|&nbsp;
+      <span>HGLG11</span> <b>R$ 150,00</b> <em>8.8%</em> &nbsp;|&nbsp;
+      <span>KNRI11</span> <b>R$ 154,20</b> <em>8.4%</em> &nbsp;|&nbsp;
+      <span>MXRF11</span> <b>R$ 9,69</b> <em>12.3%</em> &nbsp;|&nbsp;
+      <span>KNCR11</span> <b>R$ 106,90</b> <em>13.5%</em> &nbsp;|&nbsp;
+      
+      <span>BBAS3</span> <b>R$ 20,00</b> <em>~7.0%</em> &nbsp;|&nbsp;
+      <span>ITSA4</span> <b>R$ 13,50</b> <em>~5.5%</em> &nbsp;|&nbsp;
+      <span>BRSR6</span> <b>R$ 13,99</b> <em>11.4%</em> &nbsp;|&nbsp;
+      <span>CMIG4</span> <b>R$ 11,77</b> <em>~9.0%</em> &nbsp;|&nbsp;
+      <span>CXSE3</span> <b>R$ 19,93</b> <em>6.6%</em> &nbsp;|&nbsp;
+      <span>BTCI11</span> <b>R$ 9,10</b> <em>12.8%</em> &nbsp;|&nbsp;
+      <span>VGIR11</span> <b>R$ 9,73</b> <em>15.8%</em> &nbsp;|&nbsp;
+      <span>GARE11</span> <b>R$ 8,14</b> <em>~9.0%</em> &nbsp;|&nbsp;
+      <span>SNEL11</span> <b>R$ 8,54</b> <em>~8.0%</em>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div>
+        <span class="brand-eyebrow">Renda Variável · B3 · Buy &amp; Hold</span>
+        <h1>Carteira <em>5+5</em> — Ações &amp; FIIs</h1>
+        <p class="lede">Duas abordagens com a mesma estratégia de alocação de longo prazo: 5 ações e 5 fundos imobiliários diversificados setorialmente. Ideal para aportes periódicos e reinvestimento de dividendos.</p>
+      </div>
+      <div class="kpi-board">
+        <div class="kpi-card padrao">
+          <div class="cap">Carteira Padrão</div>
+          <div class="num" id="kpi-padrao-val">R$ 772,54</div>
+          <div class="dy-badge" id="kpi-padrao-dy">DY Médio: ~9,25%</div>
+        </div>
+        <div class="kpi-card economica">
+          <div class="cap">Carteira Econômica</div>
+          <div class="num" id="kpi-economica-val">R$ 124,39</div>
+          <div class="dy-badge" id="kpi-economica-dy">DY Médio: ~9,74%</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- WARNING DISCLAIMER BANNER -->
+    <div class="warning-banner">
+      <span class="icon">⚠️</span>
+      <div>
+        <strong>Aviso Importante:</strong> Esta carteira tem caráter exclusivamente didático, servindo apenas para fins de análise e estudo. Não constitui qualquer tipo de recomendação de investimento, compra ou venda de ativos.
+      </div>
+    </div>
+
+    <!-- SECTION: INVESTMENT PROJECTION -->
+    <div class="projection-panel">
+      <div class="projection-controls">
+        <div class="projection-title">
+          <h2>Simulador de Evolução Patrimonial</h2>
+          <p>Projete seu patrimônio acumulado ao longo do tempo com base em aportes constantes e reinvestimento dos proventos.</p>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">
+            <span>Aporte Inicial (R$)</span>
+            <input type="text" class="num-input" id="input-aporte-inicial" value="R$ 1.000,00">
+          </div>
+          <input type="range" class="slider-input" id="range-aporte-inicial" min="0" max="10000" step="100" value="1000">
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">
+            <span>Aporte Mensal (R$)</span>
+            <input type="text" class="num-input" id="input-aporte-mensal" value="R$ 500,00">
+          </div>
+          <input type="range" class="slider-input" id="range-aporte-mensal" min="50" max="10000" step="50" value="500">
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">
+            <span>Período (Anos)</span>
+            <input type="number" class="num-input" id="input-anos" value="15" min="1" max="100">
+          </div>
+          <input type="range" class="slider-input" id="range-anos" min="1" max="40" step="1" value="15">
+        </div>
+
+        <div class="control-group">
+          <div class="control-label">
+            <span>Retorno Anual (DY + Cresc. %)</span>
+            <input type="text" class="num-input" id="input-retorno" value="11,0">
+          </div>
+          <input type="range" class="slider-input" id="range-retorno" min="4" max="20" step="0.5" value="11">
+        </div>
+
+        <div class="preset-selector">
+          <button class="preset-btn active" id="btn-preset-default" onclick="setPreset('default')">Perfil Padrão</button>
+          <button class="preset-btn" id="btn-preset-fii" onclick="setPreset('fii')">Foco FIIs/Proventos</button>
+        </div>
+
+        <div class="summary-metrics">
+          <div class="metric-item">
+            <span class="lbl">Total Investido</span>
+            <div class="val" id="val-total-investido">R$ 91.000</div>
+          </div>
+          <div class="metric-item juros">
+            <span class="lbl">Evolução em Juros</span>
+            <div class="val" id="val-total-juros">R$ 122.430</div>
+          </div>
+          <div class="metric-item highlight">
+            <span class="lbl">Patrimônio Final</span>
+            <div class="val" id="val-patrimonio-final">R$ 213.430</div>
+          </div>
+          <div class="metric-item rendimento">
+            <span class="lbl">Renda Mensal Est.</span>
+            <div class="val" id="val-rendimento-mensal">R$ 1.643</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <canvas id="projectionChart"></canvas>
+      </div>
+    </div>
+
+    <!-- SECTION: PORTFOLIOS DETAILS -->
+    <div class="portfolio-grid">
+      
+      <!-- CARTEIRA PADRÃO -->
+      <div class="card padrao-card">
+        <div>
+          <div class="card-head">
+            <div class="card-title">
+              <h3>Carteira Padrão</h3>
+              <div class="card-sub">Ativos de alta liquidez, maior governança e robustez de mercado</div>
+            </div>
+            <div class="card-total">
+              <div class="num" id="total-padrao-tab">R$ 772,54</div>
+              <div class="cap">1 lote de cada</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table id="table-padrao">
+              <thead>
+                <tr>
+                  <th>Ativo</th>
+                  <th>Tipo</th>
+                  <th>Preço Unitário</th>
+                  <th>DY Est. (12m)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="ticker">ITUB4</span>
+                    <span class="sector">Bancos</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 40,00</td>
+                  <td><span class="dy mid">~7,0%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">VALE3</span>
+                    <span class="sector">Mineração / Commodities</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 80,45</td>
+                  <td><span class="dy hi">10,3%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">TAEE11</span>
+                    <span class="sector">Energia Elétrica</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 41,50</td>
+                  <td><span class="dy hi">~9,0%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">BBSE3</span>
+                    <span class="sector">Seguros e Previdência</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 38,90</td>
+                  <td><span class="dy hi">~8,0%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">WEGE3</span>
+                    <span class="sector">Equipamentos Industriais</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 46,00</td>
+                  <td><span class="dy mid">4,7%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">XPML11</span>
+                    <span class="sector">FII Shoppings</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 104,90</td>
+                  <td><span class="dy hi">10,5%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">HGLG11</span>
+                    <span class="sector">FII Logística / Galpões</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 150,00</td>
+                  <td><span class="dy hi">8,8%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">KNRI11</span>
+                    <span class="sector">FII Híbrido (Lajes + Galpões)</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 154,20</td>
+                  <td><span class="dy hi">8,4%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">MXRF11</span>
+                    <span class="sector">FII Papel / Recebíveis</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 9,69</td>
+                  <td><span class="dy hi">12,3%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">KNCR11</span>
+                    <span class="sector">FII Papel / Indexado ao CDI</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 106,90</td>
+                  <td><span class="dy hi">13,5%</span></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">DY Médio Ponderado (1 un. de cada)</td>
+                  <td id="avg-dy-padrao">9,25%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <p class="foot-note">Empresas líderes de setor, com balanço robusto, combinadas com fundos imobiliários com portfólio físico excelente ou indexadores de inflação/crédito saudáveis.</p>
+      </div>
+
+      <!-- CARTEIRA ECONÔMICA -->
+      <div class="card economica-card">
+        <div>
+          <div class="card-head">
+            <div class="card-title">
+              <h3>Carteira Econômica</h3>
+              <div class="card-sub">Acesso facilitado para aportes iniciais menores mantendo a diversificação</div>
+            </div>
+            <div class="card-total">
+              <div class="num" id="total-economica-tab">R$ 124,39</div>
+              <div class="cap">1 lote de cada</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table id="table-economica">
+              <thead>
+                <tr>
+                  <th>Ativo</th>
+                  <th>Tipo</th>
+                  <th>Preço Unitário</th>
+                  <th>DY Est. (12m)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="ticker">BBAS3</span>
+                    <span class="sector">Bancos (Banco do Brasil)</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 20,00</td>
+                  <td><span class="dy mid">~7,0%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">ITSA4</span>
+                    <span class="sector">Holding Financeira (Itaúsa)</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 13,50</td>
+                  <td><span class="dy mid">~5,5%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">BRSR6</span>
+                    <span class="sector">Bancos Regional (Banrisul)</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 13,99</td>
+                  <td><span class="dy hi">11,4%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">CMIG4</span>
+                    <span class="sector">Energia Elétrica (Cemig)</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 11,77</td>
+                  <td><span class="dy hi">~9,0%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">CXSE3</span>
+                    <span class="sector">Seguros (Caixa Seguridade)</span>
+                  </td>
+                  <td><span class="kind acao">AÇÃO</span></td>
+                  <td class="price">R$ 19,93</td>
+                  <td><span class="dy mid">6,6%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">MXRF11</span>
+                    <span class="sector">FII Híbrido (Papel/Tijolo)</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 9,69</td>
+                  <td><span class="dy hi">12,3%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">BTCI11</span>
+                    <span class="sector">FII Papel / Cri BTG</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 9,10</td>
+                  <td><span class="dy hi">12,8%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">VGIR11</span>
+                    <span class="sector">FII Papel / Indexado ao CDI</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 9,73</td>
+                  <td><span class="dy hi">15,8%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">GARE11</span>
+                    <span class="sector">FII Tijolo Híbrido (Renda Urbana)</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 8,14</td>
+                  <td><span class="dy mid">~9,0%</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ticker">SNEL11</span>
+                    <span class="sector">FII Energias Renováveis (CDI)</span>
+                  </td>
+                  <td><span class="kind fii">FII</span></td>
+                  <td class="price">R$ 8,54</td>
+                  <td><span class="dy mid">~8,0%</span></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">DY Médio Ponderado (1 un. de cada)</td>
+                  <td id="avg-dy-economica">9,74%</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <p class="foot-note">Cotas de FIIs de base R$ 10 (mais acessíveis) e ações mais fracionadas em preço unitário, mantendo um mix setorial robusto e alto fluxo mensal de rendimento.</p>
+      </div>
+
+    </div>
+
+    <!-- SECTION: ALTERNATIVES -->
+    <div class="alt-panel">
+      <div class="alt-intro">
+        <div class="icon">$</div>
+        <h2>Sem o valor completo?</h2>
+        <p>A B3 e o mercado de capitais oferecem alternativas flexíveis para iniciar imediatamente sem restrições.</p>
+      </div>
+      
+      <div class="alt-card">
+        <div class="alt-num">01 · FRACIONADO</div>
+        <div class="alt-title">Compre frações de lote</div>
+        <div class="alt-body">No mercado de ações fracionário da B3 (basta adicionar o sufixo <b>F</b> ao código, ex: <b>ITUB4F</b>), você pode comprar de 1 a 99 ações avulsas. Excelente para investidores pequenos.</div>
+      </div>
+      
+      <div class="alt-card">
+        <div class="alt-num">02 · APORTE GRADUAL</div>
+        <div class="alt-title">Divisão por Etapas</div>
+        <div class="alt-body">Divida sua montagem de carteira em blocos mensais. Aporte nos <b>3 ativos mais baratos</b> primeiro, ampliando para os demais a cada novo mês ou oportunidade de desconto.</div>
+      </div>
+      
+      <div class="alt-card">
+        <div class="alt-num">03 · MODELO SIMPLIFICADO</div>
+        <div class="alt-title">Simplificar para 3+3</div>
+        <div class="alt-body">Foque em 3 ações e 3 FIIs chaves (um grande banco, energia elétrica, e fundos de tijolo). Reduz os custos operacionais iniciais e simplifica o acompanhamento da rentabilidade.</div>
+      </div>
+    </div>
+
+    <!-- SECTION: RECOMMENDED STUDY CHANNELS -->
+    <div class="study-channels-section">
+      <h2>Canais Recomendados para Estudar Investimentos</h2>
+      <div class="channels-grid">
+        <a href="https://www.youtube.com/@geracaodividendoss" target="_blank" class="channel-card gd">
+          <div class="channel-avatar">💰</div>
+          <div class="channel-info">
+            <h3>Geração Dividendos <span class="badge">YouTube</span></h3>
+            <p>Foco total em estratégias de dividendos, análise fundamentalista e estratégias de aportes constantes para acumular patrimônio e viver de renda.</p>
+          </div>
+        </a>
+        <a href="https://www.youtube.com/@investidorsardinha" target="_blank" class="channel-card sardinha">
+          <div class="channel-avatar">🐟</div>
+          <div class="channel-info">
+            <h3>Investidor Sardinha <span class="badge">YouTube</span></h3>
+            <p>Explicações descontraídas e extremamente didáticas sobre investimentos, análise de empresas e métodos de avaliação de ativos para iniciantes e avançados.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p class="disclaimer">¹ DY (Dividend Yield) = Relação percentual entre proventos pagos nos últimos 12 meses e o preço atual de cotação. Valores aproximados compilados para referência histórica educativa. O mercado de capitais está sujeito a flutuações e oscilações de cotações e proventos futuros. O conteúdo desta página é exclusivamente didático e de autoatendimento, não configurando análise formal, recomendação de compra, venda ou alocação patrimonial sob os termos regulamentados pela CVM.</p>
+      <div class="stamp">B3 · RENDA VARIÁVEL · 2026</div>
+    </footer>
+  </div>
+
+  <!-- JavaScript and Chart Initialization -->
+  <script src="script.js"></script>
+</body>
+</html>
